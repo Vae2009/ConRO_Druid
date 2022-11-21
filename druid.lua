@@ -721,7 +721,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 				tinsert(ConRO.SuggestedSpells, _Rip);
 			end
 
-			if tChosen[Feral_Ability.Sabertooth] then
+			if tChosen[Passive.Sabertooth.talentID] then
 				if _FerociousBite_RDY and _Rip_DUR <= 9 and _Combo >= 5 then
 					tinsert(ConRO.SuggestedSpells, _FerociousBite);
 				end
@@ -735,7 +735,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 				tinsert(ConRO.SuggestedSpells, _Rake);
 			end		
 
-			if _Thrash_RDY and _Thrash_Cat_DUR <= 10 and not _Bloodtalons_BUFF and tChosen[Feral_Ability.Bloodtalons] and not tChosen[Feral_Ability.BrutalSlash] and not tChosen[Feral_Ability.LunarInspiration] and ConRO.lastSpellId ~= _Thrash then
+			if _Thrash_RDY and _Thrash_Cat_DUR <= 10 and not _Bloodtalons_BUFF and tChosen[Passive.Bloodtalons.talentID] and not tChosen[Ability.BrutalSlash.talentID] and not tChosen[Passive.LunarInspiration.talentID] and ConRO.lastSpellId ~= _Thrash then
 				tinsert(ConRO.SuggestedSpells, _Thrash);
 			end
 			

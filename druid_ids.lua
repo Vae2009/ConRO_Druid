@@ -95,7 +95,6 @@ local ConRO_Druid, ids = ...;
 			FullMoon = {spellID = 274283, talentID = 109860},
 		SolarBeam = {spellID = 78675, talentID = 109867},
 		Starfall = {spellID = 191034, talentID = 109833},
-		Starfire	= {spellID = 194153},
 		StellarFlare = {spellID = 202347, talentID = 109841},
 		WildMushroom = {spellID = 88747, talentID = 109854},
 		WarriorofElune	= {spellID = 202425, talentID = 109869},
