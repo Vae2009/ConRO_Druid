@@ -633,7 +633,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 			_IncarnationAvatarofAshmane_RDY = false;
 		end
 
-		if _PrimalWrath_RDY and _Combo == 5 then
+		if _PrimalWrath_RDY and _Combo == 5 and _enemies_in_melee >= 2 then
 			tinsert(ConRO.SuggestedSpells, _PrimalWrath);
 			_Combo = _Combo - 5;
 		end
