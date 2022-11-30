@@ -121,6 +121,8 @@ function ConRO.Druid.Disabled(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 end
 
 function ConRO.Druid.Under10(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
+	wipe(ConRO.SuggestedSpells)
+	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Druid_Ability, ids.Druid_Passive, ids.Druid_Form, ids.Druid_Buff, ids.Druid_Debuff, ids.Druid_PetAbility, ids.Druid_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level																					= UnitLevel("player");
 	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
@@ -154,6 +156,8 @@ return nil;
 end
 
 function ConRO.Druid.Under10Def(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
+	wipe(ConRO.SuggestedDefSpells)
+	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Druid_Ability, ids.Druid_Passive, ids.Druid_Form, ids.Druid_Buff, ids.Druid_Debuff, ids.Druid_PetAbility, ids.Druid_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level																					= UnitLevel("player");
 	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
