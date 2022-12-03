@@ -213,6 +213,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 
 --Abilities
 	local _CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = ConRO:AbilityReady(Ability.CelestialAlignment, timeShift);
+	local _CelestialAlignmentOS, _CelestialAlignmentOS_RDY, _CelestialAlignmentOS_CD = ConRO:AbilityReady(Ability.CelestialAlignmentOS, timeShift);
 		local _CelestialAlignment_BUFF = ConRO:Aura(Buff.CelestialAlignment, timeShift);
 	local _Moonfire, _Moonfire_RDY = ConRO:AbilityReady(Ability.Moonfire, timeShift);
 		local _Moonfire_DEBUFF, _, _Moonfire_DUR = ConRO:TargetAura(Debuff.Moonfire, timeShift);
@@ -290,6 +291,10 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 		elseif ConRO:FindSpell(_HalfMoon) then
 			_NewMoon_RDY = _NewMoon_RDY and _HalfMoon_CD <= 0;
 			_NewMoon = _HalfMoon;
+		end
+
+		if tChosen[Passive.OrbitalStrike.talentID] then
+			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = _CelestialAlignmentOS, _CelestialAlignmentOS_RDY, _CelestialAlignmentOS_CD;
 		end
 
 

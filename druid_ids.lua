@@ -86,6 +86,7 @@ local ConRO_Druid, ids = ...;
 	--Balance	
 		AstralCommunion = {spellID = 202359, talentID = 109871},
 		CelestialAlignment = {spellID = 194223, talentID = 109849},
+			CelestialAlignmentOS = {spellID = 383410, talentID = 109856},
 		ConvoketheSpirits	= {spellID = 391528, talentID = 109838},
 		ForceofNature = {spellID = 205636, talentID = 109844},
 		FuryofElune	= {spellID = 202770, talentID = 109859},
