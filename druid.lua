@@ -858,11 +858,11 @@ function ConRO.Druid.Guardian(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 --Abilities	
 	local _BearForm, _BearForm_RDY = ConRO:AbilityReady(Ability.BearForm, timeShift);
 		local _BearForm_FORM = ConRO:Form(Form.BearForm);
-	local _Berserk, _Berserk_RDY = ConRO:AbilityReady(Ability.BerserkPersistence, timeShift);
+	local _Berserk, _Berserk_RDY, _Berserk_CD = ConRO:AbilityReady(Ability.BerserkPersistence, timeShift);
 	local _BerserkRavage, _BerserkRavage_RDY = ConRO:AbilityReady(Ability.BerserkRavage, timeShift);
 	local _BerserkUncheckedAggression, _BerserkUncheckedAggression_RDY = ConRO:AbilityReady(Ability.BerserkUncheckedAggression, timeShift);
 	local _ConvoketheSpirits, _ConvoketheSpirits_RDY = ConRO:AbilityReady(Ability.ConvoketheSpirits, timeShift);
-	local _IncarnationGuardianofUrsoc, _IncarnationGuardianofUrsoc_RDY = ConRO:AbilityReady(Ability.IncarnationGuardianofUrsoc, timeShift);
+	local _IncarnationGuardianofUrsoc, _IncarnationGuardianofUrsoc_RDY, _IncarnationGuardianofUrsoc_CD = ConRO:AbilityReady(Ability.IncarnationGuardianofUrsoc, timeShift);
 	local _Growl, _Growl_RDY = ConRO:AbilityReady(Ability.Growl, timeShift);
 	local _HeartoftheWild, _HeartoftheWild_RDY = ConRO:AbilityReady(Ability.HeartoftheWild, timeShift);
 	local _Mangle, _Mangle_RDY = ConRO:AbilityReady(Ability.Mangle, timeShift);
@@ -912,7 +912,7 @@ function ConRO.Druid.Guardian(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 		end
 
 		if tChosen[Ability.IncarnationGuardianofUrsoc.talentID] then
-			_Berserk, _Berserk_RDY = _IncarnationGuardianofUrsoc, _IncarnationGuardianofUrsoc_RDY;
+			_Berserk, _Berserk_RDY, _Berserk_CD = _IncarnationGuardianofUrsoc, _IncarnationGuardianofUrsoc_RDY, _IncarnationGuardianofUrsoc_CD;
 		elseif tChosen[Ability.BerserkRavage.talentID] then
 			_Berserk_RDY = _BerserkRavage;
 		elseif tChosen[Ability.BerserkUncheckedAggression.talentID] then
@@ -950,7 +950,7 @@ function ConRO.Druid.Guardian(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 			_ConvoketheSpirits_RDY = false;
 		end
 
-		if _Berserk_RDY then
+		if _Berserk_RDY and _Berserk_CD <= 0 then
 			tinsert(ConRO.SuggestedSpells, _Berserk);
 			_Berserk_RDY = false;
 		end
