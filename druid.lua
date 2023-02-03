@@ -926,7 +926,10 @@ function ConRO.Druid.Guardian(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 
 	ConRO:AbilityTaunt(_Growl, _Growl_RDY and (not ConRO:InRaid() or (ConRO:InRaid() and ConRO:TarYou())));
 
+	ConRO:AbilityBurst(_RageoftheSleeper, _RageoftheSleeper_RDY and ConRO:BurstMode(_RageoftheSleeper));
+	ConRO:AbilityBurst(_HeartoftheWild, _HeartoftheWild_RDY and ConRO:BurstMode(_HeartoftheWild));
 	ConRO:AbilityBurst(_ConvoketheSpirits, _ConvoketheSpirits_RDY and ConRO:BurstMode(_ConvoketheSpirits));
+	ConRO:AbilityBurst(_Berserk, _Berserk_RDY and _Berserk_CD <= 0 and ConRO:BurstMode(_Berserk));
 
 --Rotations	
 	for i = 1, 2, 1 do
@@ -935,22 +938,22 @@ function ConRO.Druid.Guardian(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 			_BearForm_FORM = true;
 		end
 
-		if _RageoftheSleeper_RDY then
+		if _RageoftheSleeper_RDY and ConRO:FullMode(_RageoftheSleeper) then
 			tinsert(ConRO.SuggestedSpells, _RageoftheSleeper);
 			_RageoftheSleeper_RDY = false;
 		end
 
-		if _HeartoftheWild_RDY then
+		if _HeartoftheWild_RDY and ConRO:FullMode(_HeartoftheWild) then
 			tinsert(ConRO.SuggestedSpells, _HeartoftheWild);
 			_HeartoftheWild_RDY = false;
 		end
 
-		if _ConvoketheSpirits_RDY then
+		if _ConvoketheSpirits_RDY and ConRO:FullMode(_ConvoketheSpirits) then
 			tinsert(ConRO.SuggestedSpells, _ConvoketheSpirits);
 			_ConvoketheSpirits_RDY = false;
 		end
 
-		if _Berserk_RDY and _Berserk_CD <= 0 then
+		if _Berserk_RDY and _Berserk_CD <= 0 and ConRO:FullMode(_Berserk) then
 			tinsert(ConRO.SuggestedSpells, _Berserk);
 			_Berserk_RDY = false;
 		end
