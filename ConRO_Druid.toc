@@ -1,7 +1,7 @@
 ## Title:-|cffFFFFFFConRO|r- |cffFF7D0ADruid|r
-## Version: 10.0.14
+## Version: 10.2.0
 ## Author: Vae
-## Interface: 100005
+## Interface: 100200
 ## Dependencies: ConRO
 ## LoadOnDemand: 1
 

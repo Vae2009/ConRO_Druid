@@ -130,7 +130,7 @@ end
 
 function ConRO.Druid.Under10(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Druid_Ability, ids.Druid_Passive, ids.Druid_Form, ids.Druid_Buff, ids.Druid_Debuff, ids.Druid_PetAbility, ids.Druid_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Druid_Ability, ids.Druid_Form, ids.Druid_Buff, ids.Druid_Debuff, ids.Druid_PetAbility, ids.Druid_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level																					= UnitLevel("player");
 	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
@@ -165,7 +165,7 @@ end
 
 function ConRO.Druid.Under10Def(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Druid_Ability, ids.Druid_Passive, ids.Druid_Form, ids.Druid_Buff, ids.Druid_Debuff, ids.Druid_PetAbility, ids.Druid_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Druid_Ability, ids.Druid_Form, ids.Druid_Buff, ids.Druid_Debuff, ids.Druid_PetAbility, ids.Druid_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level																					= UnitLevel("player");
 	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
@@ -199,7 +199,7 @@ end
 
 function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Bal_Ability, ids.Bal_Passive, ids.Bal_Form, ids.Bal_Buff, ids.Bal_Debuff, ids.Bal_PetAbility, ids.Bal_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Bal_Ability, ids.Bal_Form, ids.Bal_Buff, ids.Bal_Debuff, ids.Bal_PetAbility, ids.Bal_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -304,7 +304,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			_NewMoon = _HalfMoon;
 		end
 
-		if tChosen[Passive.OrbitalStrike.talentID] then
+		if tChosen[Ability.OrbitalStrike.talentID] then
 			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = _CelestialAlignmentOS, _CelestialAlignmentOS_RDY, _CelestialAlignmentOS_CD;
 			_IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD = _IncarnationChosenofEluneOS, _IncarnationChosenofEluneOS_RDY, _IncarnationChosenofEluneOS_CD;
 		end
@@ -403,7 +403,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			_FuryofElune_RDY = false;
 		end		
 
-		if _WildMushroom_RDY and _WildMushroom_CHARGES >= 1 and (tChosen[Passive.FungalGrowth.talentID] or ((ConRO_AutoButton:IsVisible() and _enemies_in_range >= 3) or ConRO_AoEButton:IsVisible())) then
+		if _WildMushroom_RDY and _WildMushroom_CHARGES >= 1 and ((ConRO_AutoButton:IsVisible() and _enemies_in_range >= 3) or ConRO_AoEButton:IsVisible()) then
 			tinsert(ConRO.SuggestedSpells, _WildMushroom);
 			_WildMushroom_CHARGES = _WildMushroom_CHARGES - 1;
 		end
@@ -451,7 +451,7 @@ end
 
 function ConRO.Druid.BalanceDef(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Bal_Ability, ids.Bal_Passive, ids.Bal_Form, ids.Bal_Buff, ids.Bal_Debuff, ids.Bal_PetAbility, ids.Bal_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Bal_Ability, ids.Bal_Form, ids.Bal_Buff, ids.Bal_Debuff, ids.Bal_PetAbility, ids.Bal_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -465,21 +465,21 @@ function ConRO.Druid.BalanceDef(_, timeShift, currentSpell, gcd, tChosen, pvpCho
 	local _Target_Percent_Health = ConRO:PercentHealth('target');
 
 --Resources
-	local _AstralPower, _AstralPower_Max																	= ConRO:PlayerPower('LunarPower');
-	local _Mana, _Mana_Max																				= ConRO:PlayerPower('Mana');
+	local _AstralPower, _AstralPower_Max = ConRO:PlayerPower('LunarPower');
+	local _Mana, _Mana_Max = ConRO:PlayerPower('Mana');
 
 --Racials
-	local _Berserking, _Berserking_RDY																	= ConRO:AbilityReady(Racial.Berserking, timeShift);
+	local _Berserking, _Berserking_RDY = ConRO:AbilityReady(Racial.Berserking, timeShift);
 
 --Abilities	
-	local _Barkskin, _Barkskin_RDY 																		= ConRO:AbilityReady(Ability.Barkskin, timeShift);
+	local _Barkskin, _Barkskin_RDY = ConRO:AbilityReady(Ability.Barkskin, timeShift);
 
-	local _Renewal, _Renewal_RDY 																		= ConRO:AbilityReady(Ability.Renewal, timeShift);
+	local _Renewal, _Renewal_RDY = ConRO:AbilityReady(Ability.Renewal, timeShift);
 
 --Conditions
-	local _is_moving 																					= ConRO:PlayerSpeed();
-	local _enemies_in_melee, _target_in_melee															= ConRO:Targets("Melee");
-	local _target_in_10yrds 																			= CheckInteractDistance("target", 3);
+	local _is_moving = ConRO:PlayerSpeed();
+	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Rotations	
 		if _Renewal_RDY and _Player_Percent_Health <= 60 then
@@ -494,7 +494,7 @@ end
 
 function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Feral_Ability, ids.Feral_Passive, ids.Feral_Form, ids.Feral_Buff, ids.Feral_Debuff, ids.Feral_PetAbility, ids.Feral_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Feral_Ability, ids.Feral_Form, ids.Feral_Buff, ids.Feral_Debuff, ids.Feral_PetAbility, ids.Feral_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -591,7 +591,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 			_Swipe = _SwipeCF;
 		end
 
-		if tChosen[Passive.LunarInspiration.talentID] then
+		if tChosen[Ability.LunarInspiration.talentID] then
 			_Moonfire_RDY = _Moonfire_RDY and _MoonfireCF_CD <= 0;
 			_Moonfire = _MoonfireCF;
 		end
@@ -685,7 +685,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 				_Combo = _Combo + 1;
 			end
 
-			if _Moonfire_RDY and not _Moonfire_DEBUFF and tChosen[Passive.LunarInspiration.talentID] then
+			if _Moonfire_RDY and not _Moonfire_DEBUFF and tChosen[Ability.LunarInspiration.talentID] then
 				tinsert(ConRO.SuggestedSpells, _Moonfire);
 				_Moonfire_RDY = false;
 			end
@@ -707,7 +707,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 				_Combo = _Combo + 1;
 			end
 
-			if _Thrash_RDY and _Combo <= 4 and tChosen[Passive.Bloodtalons.talentID] and not _Bloodtalons_BUFF and ConRO.lastSpellId ~= _Thrash then
+			if _Thrash_RDY and _Combo <= 4 and tChosen[Ability.Bloodtalons.talentID] and not _Bloodtalons_BUFF and ConRO.lastSpellId ~= _Thrash then
 				tinsert(ConRO.SuggestedSpells, _Thrash);
 				_Thrash_Cat_DUR = 15;
 				_Combo = _Combo + 1;
@@ -753,7 +753,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 				tinsert(ConRO.SuggestedSpells, _Rake);
 			end
 
-			if _Moonfire_RDY and not _Moonfire_DEBUFF and tChosen[Passive.LunarInspiration.talentID] then
+			if _Moonfire_RDY and not _Moonfire_DEBUFF and tChosen[Ability.LunarInspiration.talentID] then
 				tinsert(ConRO.SuggestedSpells, _Moonfire);
 				_Moonfire_RDY = false;
 			end
@@ -764,7 +764,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 				_Combo = _Combo + 1;
 			end
 
-			if _Thrash_RDY and _Combo <= 4 and (not _ThrashCF_DEBUFF or _ThrashCF_DUR <= 4) and ((tChosen[Passive.Bloodtalons.talentID] and not _Bloodtalons_BUFF) or tChosen[Passive.TasteforBlood.talentID]) and ConRO.lastSpellId ~= _Thrash then
+			if _Thrash_RDY and _Combo <= 4 and (not _ThrashCF_DEBUFF or _ThrashCF_DUR <= 4) and ((tChosen[Ability.Bloodtalons.talentID] and not _Bloodtalons_BUFF) or tChosen[Ability.TasteforBlood.talentID]) and ConRO.lastSpellId ~= _Thrash then
 				tinsert(ConRO.SuggestedSpells, _Thrash);
 				_Thrash_Cat_DUR = 15;
 				_Combo = _Combo + 1;
@@ -781,7 +781,7 @@ end
 
 function ConRO.Druid.FeralDef(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Feral_Ability, ids.Feral_Passive, ids.Feral_Form, ids.Feral_Buff, ids.Feral_Debuff, ids.Feral_PetAbility, ids.Feral_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Feral_Ability, ids.Feral_Form, ids.Feral_Buff, ids.Feral_Debuff, ids.Feral_PetAbility, ids.Feral_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -812,7 +812,7 @@ function ConRO.Druid.FeralDef(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 --Conditions
 	local _is_moving = ConRO:PlayerSpeed();
 	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
-	local _target_in_10yrds = CheckInteractDistance("target", 3);
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Rotations	
 		if _Regrowth_RDY and _PredatorySwiftness_BUFF and _Player_Percent_Health <= 95 then
@@ -835,7 +835,7 @@ end
 
 function ConRO.Druid.Guardian(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Guard_Ability, ids.Guard_Passive, ids.Guard_Form, ids.Guard_Buff, ids.Guard_Debuff, ids.Guard_PetAbility, ids.Guard_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Guard_Ability, ids.Guard_Form, ids.Guard_Buff, ids.Guard_Debuff, ids.Guard_PetAbility, ids.Guard_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -892,7 +892,7 @@ function ConRO.Druid.Guardian(_, timeShift, currentSpell, gcd, tChosen, pvpChose
 --Conditions
 	local _is_moving = ConRO:PlayerSpeed();
 	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
-	local _target_in_10yrds = CheckInteractDistance("target", 3);
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 		if _BearForm_FORM then
 			_WildCharge = _WildChargeBF;
@@ -997,41 +997,41 @@ end
 
 function ConRO.Druid.GuardianDef(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Guard_Ability, ids.Guard_Passive, ids.Guard_Form, ids.Guard_Buff, ids.Guard_Debuff, ids.Guard_PetAbility, ids.Guard_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Guard_Ability, ids.Guard_Form, ids.Guard_Buff, ids.Guard_Debuff, ids.Guard_PetAbility, ids.Guard_PvPTalent, ids.Glyph;
 --Info
-	local _Player_Level																					= UnitLevel("player");
-	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
-	local _is_PvP																						= ConRO:IsPvP();
-	local _in_combat 																					= UnitAffectingCombat('player');
-	local _party_size																					= GetNumGroupMembers();
+	local _Player_Level = UnitLevel("player");
+	local _Player_Percent_Health = ConRO:PercentHealth('player');
+	local _is_PvP = ConRO:IsPvP();
+	local _in_combat = UnitAffectingCombat('player');
+	local _party_size = GetNumGroupMembers();
 
-	local _is_PC																						= UnitPlayerControlled("target");
-	local _is_Enemy 																					= ConRO:TarHostile();
-	local _Target_Health 																				= UnitHealth('target');
-	local _Target_Percent_Health 																		= ConRO:PercentHealth('target');
+	local _is_PC = UnitPlayerControlled("target");
+	local _is_Enemy = ConRO:TarHostile();
+	local _Target_Health = UnitHealth('target');
+	local _Target_Percent_Health = ConRO:PercentHealth('target');
 
 --Resources
-	local _Mana, _Mana_Max																				= ConRO:PlayerPower('Mana');
-	local _Rage, _Rage_Max																				= ConRO:PlayerPower('Rage');
+	local _Mana, _Mana_Max = ConRO:PlayerPower('Mana');
+	local _Rage, _Rage_Max = ConRO:PlayerPower('Rage');
 
 --Racials
-	local _Berserking, _Berserking_RDY																	= ConRO:AbilityReady(Racial.Berserking, timeShift);
+	local _Berserking, _Berserking_RDY = ConRO:AbilityReady(Racial.Berserking, timeShift);
 
 --Abilities	
-	local _SurvivalInstincts, _SurvivalInstincts_RDY 													= ConRO:AbilityReady(Ability.SurvivalInstincts, timeShift);
-		local _SurvivalInstincts_BUFF																		= ConRO:Aura(Buff.SurvivalInstincts, timeShift);
-	local _Barkskin, _Barkskin_RDY 																		= ConRO:AbilityReady(Ability.Barkskin, timeShift);
-		local _Barkskin_BUFF																				= ConRO:Aura(Buff.Barkskin, timeShift);
-	local _Ironfur, _Ironfur_RDY 																		= ConRO:AbilityReady(Ability.Ironfur, timeShift);
-		local _Ironfur_BUFF, _Ironfur_COUNT																	= ConRO:Aura(Buff.Ironfur, timeShift);
-	local _FrenziedRegeneration, _FrenziedRegeneration_RDY 												= ConRO:AbilityReady(Ability.FrenziedRegeneration, timeShift);
+	local _SurvivalInstincts, _SurvivalInstincts_RDY = ConRO:AbilityReady(Ability.SurvivalInstincts, timeShift);
+		local _SurvivalInstincts_BUFF = ConRO:Aura(Buff.SurvivalInstincts, timeShift);
+	local _Barkskin, _Barkskin_RDY = ConRO:AbilityReady(Ability.Barkskin, timeShift);
+		local _Barkskin_BUFF = ConRO:Aura(Buff.Barkskin, timeShift);
+	local _Ironfur, _Ironfur_RDY = ConRO:AbilityReady(Ability.Ironfur, timeShift);
+		local _Ironfur_BUFF, _Ironfur_COUNT = ConRO:Aura(Buff.Ironfur, timeShift);
+	local _FrenziedRegeneration, _FrenziedRegeneration_RDY = ConRO:AbilityReady(Ability.FrenziedRegeneration, timeShift);
 
-	local _BristlingFur, _BristlingFur_RDY																= ConRO:AbilityReady(Ability.BristlingFur, timeShift);
+	local _BristlingFur, _BristlingFur_RDY = ConRO:AbilityReady(Ability.BristlingFur, timeShift);
 
 --Conditions
-	local _is_moving 																					= ConRO:PlayerSpeed();
-	local _enemies_in_melee, _target_in_melee															= ConRO:Targets("Melee");
-	local _target_in_10yrds 																			= CheckInteractDistance("target", 3);
+	local _is_moving = ConRO:PlayerSpeed();
+	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Rotations	
 		if _FrenziedRegeneration_RDY and _Player_Percent_Health <= 60 then
@@ -1058,52 +1058,52 @@ end
 
 function ConRO.Druid.Restoration(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Resto_Ability, ids.Resto_Passive, ids.Resto_Form, ids.Resto_Buff, ids.Resto_Debuff, ids.Resto_PetAbility, ids.Resto_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Resto_Ability, ids.Resto_Form, ids.Resto_Buff, ids.Resto_Debuff, ids.Resto_PetAbility, ids.Resto_PvPTalent, ids.Glyph;
 --Info
-	local _Player_Level																					= UnitLevel("player");
-	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
-	local _is_PvP																						= ConRO:IsPvP();
-	local _in_combat 																					= UnitAffectingCombat('player');
-	local _party_size																					= GetNumGroupMembers();
+	local _Player_Level = UnitLevel("player");
+	local _Player_Percent_Health = ConRO:PercentHealth('player');
+	local _is_PvP = ConRO:IsPvP();
+	local _in_combat = UnitAffectingCombat('player');
+	local _party_size = GetNumGroupMembers();
 
-	local _is_PC																						= UnitPlayerControlled("target");
-	local _is_Enemy 																					= ConRO:TarHostile();
-	local _Target_Health 																				= UnitHealth('target');
-	local _Target_Percent_Health 																		= ConRO:PercentHealth('target');
+	local _is_PC = UnitPlayerControlled("target");
+	local _is_Enemy = ConRO:TarHostile();
+	local _Target_Health = UnitHealth('target');
+	local _Target_Percent_Health = ConRO:PercentHealth('target');
 
 --Resources
-	local _Mana, _Mana_Max																				= ConRO:PlayerPower('Mana');
+	local _Mana, _Mana_Max = ConRO:PlayerPower('Mana');
 
 --Racials
-	local _Berserking, _Berserking_RDY																	= ConRO:AbilityReady(Racial.Berserking, timeShift);
+	local _Berserking, _Berserking_RDY = ConRO:AbilityReady(Racial.Berserking, timeShift);
 
 --Abilities
-	local _Soothe, _Soothe_RDY																			= ConRO:AbilityReady(Ability.Soothe, timeShift);
-	local _Tranquility, _Tranquility_RDY 																= ConRO:AbilityReady(Ability.Tranquility, timeShift);
-	local _Lifebloom, _Lifebloom_RDY 																	= ConRO:AbilityReady(Ability.Lifebloom, timeShift);
-	local _Moonfire, _Moonfire_RDY 																		= ConRO:AbilityReady(Ability.Moonfire, timeShift);
-		local _Moonfire_DEBUFF																				= ConRO:TargetAura(Debuff.Moonfire, timeShift + 2);
-	local _Regrowth, _Regrowth_RDY 																		= ConRO:AbilityReady(Ability.Regrowth, timeShift);
-	local _Sunfire, _Sunfire_RDY 																		= ConRO:AbilityReady(Ability.Sunfire, timeShift);
-		local _Sunfire_DEBUFF																				= ConRO:TargetAura(Debuff.Sunfire, timeShift + 2);
-	local _Wrath, _Wrath_RDY 																			= ConRO:AbilityReady(Ability.Wrath, timeShift);
-		local _EclipseLunar_BUFF, _, _EclipseLunar_DUR														= ConRO:Aura(Buff.EclipseLunar, timeShift);
+	local _Soothe, _Soothe_RDY = ConRO:AbilityReady(Ability.Soothe, timeShift);
+	local _Tranquility, _Tranquility_RDY = ConRO:AbilityReady(Ability.Tranquility, timeShift);
+	local _Lifebloom, _Lifebloom_RDY = ConRO:AbilityReady(Ability.Lifebloom, timeShift);
+	local _Moonfire, _Moonfire_RDY = ConRO:AbilityReady(Ability.Moonfire, timeShift);
+		local _Moonfire_DEBUFF = ConRO:TargetAura(Debuff.Moonfire, timeShift + 2);
+	local _Regrowth, _Regrowth_RDY = ConRO:AbilityReady(Ability.Regrowth, timeShift);
+	local _Sunfire, _Sunfire_RDY = ConRO:AbilityReady(Ability.Sunfire, timeShift);
+		local _Sunfire_DEBUFF = ConRO:TargetAura(Debuff.Sunfire, timeShift + 2);
+	local _Wrath, _Wrath_RDY = ConRO:AbilityReady(Ability.Wrath, timeShift);
+		local _EclipseLunar_BUFF, _, _EclipseLunar_DUR = ConRO:Aura(Buff.EclipseLunar, timeShift);
 
-	local _MoonkinForm, _MoonkinForm_RDY 																= ConRO:AbilityReady(Ability.MoonkinForm, timeShift);
-		local _MoonkinForm_FORM																				= ConRO:Form(Form.MoonkinForm);
-	local _Starsurge, _Starsurge_RDY 																	= ConRO:AbilityReady(Ability.Starsurge, timeShift);
-	local _Starfire, _Starfire_RDY 																		= ConRO:AbilityReady(Ability.Starfire, timeShift);
-		local _EclipseSolar_BUFF, _, _EclipseSolar_DUR														= ConRO:Aura(Buff.EclipseSolar, timeShift);
-	local _Typhoon, _Typhoon_RDY 																		= ConRO:AbilityReady(Ability.Typhoon, timeShift);
+	local _MoonkinForm, _MoonkinForm_RDY = ConRO:AbilityReady(Ability.MoonkinForm, timeShift);
+		local _MoonkinForm_FORM = ConRO:Form(Form.MoonkinForm);
+	local _Starsurge, _Starsurge_RDY = ConRO:AbilityReady(Ability.Starsurge, timeShift);
+	local _Starfire, _Starfire_RDY = ConRO:AbilityReady(Ability.Starfire, timeShift);
+		local _EclipseSolar_BUFF, _, _EclipseSolar_DUR = ConRO:Aura(Buff.EclipseSolar, timeShift);
+	local _Typhoon, _Typhoon_RDY = ConRO:AbilityReady(Ability.Typhoon, timeShift);
 
-	local _AdaptiveSwarm, _AdaptiveSwarm_RDY															= ConRO:AbilityReady(Ability.AdaptiveSwarm, timeShift);
-		local _AdaptiveSwarm_DEBUFF																			= ConRO:TargetAura(Debuff.AdaptiveSwarm, timeShift);
-	local _ConvoketheSpirits, _ConvoketheSpirits_RDY													= ConRO:AbilityReady(Ability.ConvoketheSpirits, timeShift);
+	local _AdaptiveSwarm, _AdaptiveSwarm_RDY = ConRO:AbilityReady(Ability.AdaptiveSwarm, timeShift);
+		local _AdaptiveSwarm_DEBUFF = ConRO:TargetAura(Debuff.AdaptiveSwarm, timeShift);
+	local _ConvoketheSpirits, _ConvoketheSpirits_RDY = ConRO:AbilityReady(Ability.ConvoketheSpirits, timeShift);
 
 --Conditions
-	local _is_moving 																					= ConRO:PlayerSpeed();
-	local _enemies_in_melee, _target_in_melee															= ConRO:Targets("Melee");
-	local _target_in_10yrds 																			= CheckInteractDistance("target", 3);
+	local _is_moving = ConRO:PlayerSpeed();
+	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 		if _EclipseLunar_BUFF and _EclipseSolar_BUFF then
 			last_eclipse_phase = "both";
@@ -1181,33 +1181,33 @@ end
 
 function ConRO.Druid.RestorationDef(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Resto_Ability, ids.Resto_Passive, ids.Resto_Form, ids.Resto_Buff, ids.Resto_Debuff, ids.Resto_PetAbility, ids.Resto_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Resto_Ability, ids.Resto_Form, ids.Resto_Buff, ids.Resto_Debuff, ids.Resto_PetAbility, ids.Resto_PvPTalent, ids.Glyph;
 --Info
-	local _Player_Level																					= UnitLevel("player");
-	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
-	local _is_PvP																						= ConRO:IsPvP();
-	local _in_combat 																					= UnitAffectingCombat('player');
-	local _party_size																					= GetNumGroupMembers();
+	local _Player_Level = UnitLevel("player");
+	local _Player_Percent_Health = ConRO:PercentHealth('player');
+	local _is_PvP = ConRO:IsPvP();
+	local _in_combat = UnitAffectingCombat('player');
+	local _party_size = GetNumGroupMembers();
 
-	local _is_PC																						= UnitPlayerControlled("target");
-	local _is_Enemy 																					= ConRO:TarHostile();
-	local _Target_Health 																				= UnitHealth('target');
-	local _Target_Percent_Health 																		= ConRO:PercentHealth('target');
+	local _is_PC = UnitPlayerControlled("target");
+	local _is_Enemy = ConRO:TarHostile();
+	local _Target_Health = UnitHealth('target');
+	local _Target_Percent_Health = ConRO:PercentHealth('target');
 
 --Resources
-	local _Mana, _Mana_Max																				= ConRO:PlayerPower('Mana');
+	local _Mana, _Mana_Max = ConRO:PlayerPower('Mana');
 
 --Racials
 
 --Abilities
-	local _Barkskin, _Barkskin_RDY 																		= ConRO:AbilityReady(Ability.Barkskin, timeShift);
+	local _Barkskin, _Barkskin_RDY = ConRO:AbilityReady(Ability.Barkskin, timeShift);
 
-	local _Renewal, _Renewal_RDY 																		= ConRO:AbilityReady(Ability.Renewal, timeShift);
+	local _Renewal, _Renewal_RDY = ConRO:AbilityReady(Ability.Renewal, timeShift);
 
 --Conditions
-	local _is_moving 																					= ConRO:PlayerSpeed();
-	local _enemies_in_melee, _target_in_melee															= ConRO:Targets("Melee");
-	local _target_in_10yrds 																			= CheckInteractDistance("target", 3);
+	local _is_moving = ConRO:PlayerSpeed();
+	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Rotations	
 		if _Renewal_RDY and _Player_Percent_Health <= 60 then
