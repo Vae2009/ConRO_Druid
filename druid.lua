@@ -233,7 +233,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	local _SolarBeam, _SolarBeam_RDY = ConRO:AbilityReady(Ability.SolarBeam, timeShift);
 	local _Soothe, _Soothe_RDY = ConRO:AbilityReady(Ability.Soothe, timeShift);
 	local _Starfire, _Starfire_RDY = ConRO:AbilityReady(Ability.Starfire, timeShift);
-		local _Starfire_Count = GetSpellCount(_Starfire);
+		local _Starfire_Count = C_Spell.GetSpellCastCount(_Starfire);
 		local _EclipseSolar_BUFF, _, _EclipseSolar_DUR = ConRO:Aura(Buff.EclipseSolar, timeShift);
 	local _Starsurge, _Starsurge_RDY = ConRO:AbilityReady(Ability.Starsurge, timeShift);
 		local _Starlord_BUFF, _Starlord_COUNT = ConRO:Aura(Buff.Starlord, timeShift);
@@ -249,7 +249,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	local _WildMushroom, _WildMushroom_RDY = ConRO:AbilityReady(Ability.WildMushroom, timeShift);
 		local _WildMushroom_CHARGES = ConRO:SpellCharges(_WildMushroom);
 	local _Wrath, _Wrath_RDY = ConRO:AbilityReady(Ability.Wrath, timeShift);
-		local _Wrath_Count = GetSpellCount(_Wrath);
+		local _Wrath_Count = C_Spell.GetSpellCastCount(_Wrath);
 		local _EclipseLunar_BUFF, _, _EclipseLunar_DUR = ConRO:Aura(Buff.EclipseLunar, timeShift);
 
 --Conditions
