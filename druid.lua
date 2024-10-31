@@ -211,14 +211,11 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 
 --Abilities
 	local _CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = ConRO:AbilityReady(Ability.CelestialAlignment, timeShift);
-	local _CelestialAlignmentOS, _CelestialAlignmentOS_RDY, _CelestialAlignmentOS_CD = ConRO:AbilityReady(Ability.CelestialAlignmentOS, timeShift);
 		local _CelestialAlignment_BUFF = ConRO:Aura(Buff.CelestialAlignment, timeShift);
 	local _ConvoketheSpirits, _ConvoketheSpirits_RDY = ConRO:AbilityReady(Ability.ConvoketheSpirits, timeShift);
 	local _ForceofNature, _ForceofNature_RDY = ConRO:AbilityReady(Ability.ForceofNature, timeShift);
 	local _FuryofElune, _FuryofElune_RDY = ConRO:AbilityReady(Ability.FuryofElune, timeShift);
 	local _IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD = ConRO:AbilityReady(Ability.IncarnationChosenofElune, timeShift);
-	local _IncarnationChosenofEluneOS, _IncarnationChosenofEluneOS_RDY, _IncarnationChosenofEluneOS_CD = ConRO:AbilityReady(Ability.IncarnationChosenofEluneOS, timeShift);
-		local _IncarnationChosenofElune_BUFF = ConRO:Aura(Buff.IncarnationChosenofElune, timeShift);
 	local _MarkoftheWild, _MarkoftheWild_RDY = ConRO:AbilityReady(Ability.MarkoftheWild, timeShift);
 		local _MarkoftheWild_BUFF = ConRO:Aura(Buff.MarkoftheWild, timeShift);
 	local _Moonfire, _Moonfire_RDY = ConRO:AbilityReady(Ability.Moonfire, timeShift);
@@ -229,7 +226,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	local _NewMoon, _NewMoon_RDY = ConRO:AbilityReady(Ability.NewMoon, timeShift);
 		local _HalfMoon, _, _HalfMoon_CD = ConRO:AbilityReady(Ability.HalfMoon, timeShift);
 		local _FullMoon, _, _FullMoon_CD = ConRO:AbilityReady(Ability.FullMoon, timeShift);
-		local _NewMoon_CHARGES, _NewMoon_MCHARGES, _NewMoon_CCD = ConRO:SpellCharges(_NewMoon);
+		local _NewMoon_CHARGES, _, _, _, _NewMoon_CAST = ConRO:SpellCharges(_NewMoon);
 	local _SolarBeam, _SolarBeam_RDY = ConRO:AbilityReady(Ability.SolarBeam, timeShift);
 	local _Soothe, _Soothe_RDY = ConRO:AbilityReady(Ability.Soothe, timeShift);
 	local _Starfire, _Starfire_RDY = ConRO:AbilityReady(Ability.Starfire, timeShift);
@@ -251,6 +248,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	local _Wrath, _Wrath_RDY = ConRO:AbilityReady(Ability.Wrath, timeShift);
 		local _Wrath_Count = C_Spell.GetSpellCastCount(_Wrath);
 		local _EclipseLunar_BUFF, _, _EclipseLunar_DUR = ConRO:Aura(Buff.EclipseLunar, timeShift);
+		local _BalanceofAllthings_BUFF, _, _BalanceofAllthings_DUR = ConRO:Aura(Buff.BalanceofAllThings, timeShift);
 
 --Conditions
 	local _enemies_in_range, _target_in_range = ConRO:Targets(Ability.Wrath);
@@ -263,22 +261,24 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			_EclipseSolar_BUFF = true;
 		end
 
+	local _Moon_COST = 10;
 		if currentSpell == Ability.FullMoon then
-			_AstralPower = _AstralPower + 40;
+			_Moon_COST = 40;
 			_NewMoon_CHARGES = _NewMoon_CHARGES - 1;
 		elseif currentSpell == Ability.NewMoon then
-			_AstralPower = _AstralPower + 10;
+			_Moon_COST = 10;
 			_NewMoon_CHARGES = _NewMoon_CHARGES - 1;
 		elseif currentSpell == Ability.HalfMoon then
-			_AstralPower = _AstralPower + 20;
+			_Moon_COST = 20;
 			_NewMoon_CHARGES = _NewMoon_CHARGES - 1;
-		elseif currentSpell == Ability.Wrath then
+		end
+
+		if currentSpell == Ability.Wrath then
 			_AstralPower = _AstralPower + 10;
 			_Wrath_Count = _Wrath_Count - 1;
 		elseif currentSpell == Ability.Starfire then
 			_AstralPower = _AstralPower + 12;
 			_Starfire_Count = _Starfire_Count - 1;
-			_UmbralEmbrace_BUFF = false;
 		end
 
 		if ConRO:FindSpell(_FullMoon) then
@@ -290,12 +290,13 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 		end
 
 		if tChosen[Ability.OrbitalStrike.talentID] then
-			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = _CelestialAlignmentOS, _CelestialAlignmentOS_RDY, _CelestialAlignmentOS_CD;
-			_IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD = _IncarnationChosenofEluneOS, _IncarnationChosenofEluneOS_RDY, _IncarnationChosenofEluneOS_CD;
+			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = ConRO:AbilityReady(Ability.CelestialAlignmentOS, timeShift);
+			_IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD = ConRO:AbilityReady(Ability.IncarnationChosenofEluneOS, timeShift);
 		end
 
 		if tChosen[Ability.IncarnationChosenofElune.talentID] then
-			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD, _CelestialAlignment_BUFF = _IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD, _IncarnationChosenofElune_BUFF;
+			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = _IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD;
+			_CelestialAlignment_BUFF = ConRO:Aura(Buff.IncarnationChosenofElune, timeShift);
 		end
 
 	local _No_Eclipse = not _EclipseSolar_BUFF and not _EclipseLunar_BUFF;
@@ -305,7 +306,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	ConRO:AbilityPurge(_Soothe, _Soothe_RDY and ConRO:Purgable());
 
 	ConRO:AbilityBurst(_CelestialAlignment, _CelestialAlignment_RDY and _Moonfire_DEBUFF and _Sunfire_DEBUFF and (not tChosen[Ability.StellarFlare] or (tChosen[Ability.StellarFlare] and _StellarFlare_DEBUFF)) and (_EclipseSolar_BUFF or _EclipseLunar_BUFF) and ConRO:BurstMode(_CelestialAlignment));
-	ConRO:AbilityBurst(_FuryofElune, _FuryofElune_RDY and _AstralPower <= 60 and (((_CelestialAlignment_BUFF or _CelestialAlignment_CD >= 50) and not tChosen[Ability.IncarnationChosenofElune]) or ((_IncarnationChosenofElune_BUFF or _IncarnationChosenofElune_CD >= 40) and tChosen[Ability.IncarnationChosenofElune])) and ConRO:BurstMode(_FuryofElune));
+	ConRO:AbilityBurst(_FuryofElune, _FuryofElune_RDY and _AstralPower <= 60 and ConRO:BurstMode(_FuryofElune));
 	ConRO:AbilityBurst(_ForceofNature, _ForceofNature_RDY and _AstralPower <= 80 and ConRO:BurstMode(_ForceofNature));
 	ConRO:AbilityBurst(_WarriorofElune, _WarriorofElune_RDY and not _WarriorofElune_BUFF and ConRO:BurstMode(_WarriorofElune));
 	ConRO:AbilityBurst(_ConvoketheSpirits, _ConvoketheSpirits_RDY and (_EclipseSolar_BUFF or _EclipseLunar_BUFF) and ConRO:BurstMode(_ConvoketheSpirits));
@@ -320,11 +321,12 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 
 		if _MoonkinForm_RDY and not _MoonkinForm_FORM then
 			tinsert(ConRO.SuggestedSpells, _MoonkinForm);
+			_MoonkinForm_FORM = true;
 		end
 
 		if not _in_combat then
 			if _No_Eclipse then
-				if ((ConRO_AutoButton:IsVisible() and _enemies_in_range >= 3) or ConRO_AoEButton:IsVisible()) then
+				if ((ConRO_AutoButton:IsVisible() and _enemies_in_range >= 3) or ConRO_AoEButton:IsVisible()) or tChosen[Ability.LunarCalling.talentID] then
 					if _Wrath_RDY and _Wrath_Count >= 1 then
 						tinsert(ConRO.SuggestedSpells, _Wrath);
 						_Wrath_Count = _Wrath_Count - 1;
@@ -344,30 +346,28 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			tinsert(ConRO.SuggestedSpells, _Moonfire);
 			_Moonfire_DEBUFF = true;
 			_Moonfire_DUR = 16;
-		elseif _StellarFlare_RDY and (not _StellarFlare_DEBUFF or _StellarFlare_DUR <= 3) and currentSpell ~= _StellarFlare and ((ConRO_AutoButton:IsVisible() and _enemies_in_range <= 2) or ConRO_SingleButton:IsVisible()) then
-			tinsert(ConRO.SuggestedSpells, _StellarFlare);
-			_StellarFlare_DEBUFF = true;
-			_StellarFlare_DUR = 18;
-		elseif _Sunfire_RDY and (not _Sunfire_DEBUFF or _Sunfire_DUR <= 3) then
+		end
+
+		if _Sunfire_RDY and (not _Sunfire_DEBUFF or _Sunfire_DUR <= 3) then
 			tinsert(ConRO.SuggestedSpells, _Sunfire);
 			_Sunfire_DEBUFF = true;
 			_Sunfire_DUR = 13;
 		end
 
-		if _No_Eclipse then
-			if ((ConRO_AutoButton:IsVisible() and _enemies_in_range >= 3) or ConRO_AoEButton:IsVisible()) then
-				if _Starfire_RDY and _Starfire_Count >= 1 then
-					tinsert(ConRO.SuggestedSpells, _Starfire);
-					_Starfire_Count = _Starfire_Count - 1;
-					_EclipseSolar_BUFF = true;
-				end
-			else
-				if _Wrath_RDY and _Wrath_Count >= 1 then
-					tinsert(ConRO.SuggestedSpells, _Wrath);
-					_Wrath_Count = _Wrath_Count - 1;
-					_EclipseLunar_BUFF = true;
-				end
-			end
+		if _StellarFlare_RDY and (not _StellarFlare_DEBUFF or _StellarFlare_DUR <= 3) and currentSpell ~= _StellarFlare then
+			tinsert(ConRO.SuggestedSpells, _StellarFlare);
+			_StellarFlare_DEBUFF = true;
+			_StellarFlare_DUR = 18;
+		end
+
+		if _FuryofElune_RDY and _AstralPower <= 70 and ConRO:FullMode(_FuryofElune) then
+			tinsert(ConRO.SuggestedSpells, _FuryofElune);
+			_FuryofElune_RDY = false;
+		end
+
+		if _ForceofNature_RDY and _AstralPower <= 80 and ConRO:FullMode(_ForceofNature) then
+			tinsert(ConRO.SuggestedSpells, _ForceofNature);
+			_ForceofNature_RDY = false;
 		end
 
 		if _CelestialAlignment_RDY and not _CelestialAlignment_BUFF and ConRO:FullMode(_CelestialAlignment) then
@@ -375,12 +375,33 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			_CelestialAlignment_RDY = false;
 		end
 
+		if _WarriorofElune_RDY and not _WarriorofElune_BUFF and ConRO:FullMode(_WarriorofElune) then
+			tinsert(ConRO.SuggestedSpells, _WarriorofElune);
+			_WarriorofElune_RDY = false;
+		end
+
+		if _No_Eclipse then
+			if ((ConRO_AutoButton:IsVisible() and _enemies_in_range >= 3) or ConRO_AoEButton:IsVisible()) or tChosen[Ability.LunarCalling.talentID] then
+				if _Wrath_RDY and _Wrath_Count >= 1 then
+					tinsert(ConRO.SuggestedSpells, _Wrath);
+					_Wrath_Count = _Wrath_Count - 1;
+					_EclipseLunar_BUFF = true;
+				end
+			else
+				if _Starfire_RDY and _Starfire_Count >= 1 then
+					tinsert(ConRO.SuggestedSpells, _Starfire);
+					_Starfire_Count = _Starfire_Count - 1;
+					_EclipseSolar_BUFF = true;
+				end
+			end
+		end
+
 		if _ConvoketheSpirits_RDY and _AstralPower < 50 and ConRO:FullMode(_ConvoketheSpirits) then
 			tinsert(ConRO.SuggestedSpells, _ConvoketheSpirits);
 			_ConvoketheSpirits_RDY = false;
 		end
 
-		if _Starsurge_RDY and _AstralPower >= _AstralPower_Max - 10 and (_EclipseLunar_BUFF or _EclipseSolar_BUFF) and ((ConRO_AutoButton:IsVisible() and _enemies_in_range <= 2) or ConRO_SingleButton:IsVisible()) then
+		if _Starsurge_RDY and ((_AstralPower >= _AstralPower_Max - 10) or (_BalanceofAllthings_BUFF and _BalanceofAllthings_DUR >= 5) or (_Starlord_COUNT < 3)) and ((ConRO_AutoButton:IsVisible() and _enemies_in_range <= 2) or ConRO_SingleButton:IsVisible()) then
 			tinsert(ConRO.SuggestedSpells, _Starsurge);
 			_AstralPower = _AstralPower - 40;
 		end
@@ -390,57 +411,22 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			_AstralPower = _AstralPower - 50;
 		end
 
-		if _AstralCommunion_RDY and _AstralPower < _AstralPower_Max - 60 and ((ConRO_AutoButton:IsVisible() and _enemies_in_range <= 2) or ConRO_SingleButton:IsVisible()) then
-			tinsert(ConRO.SuggestedSpells, _AstralCommunion);
-			_AstralCommunion_RDY = false;
-			_AstralPower = AstralCommunion + 60;
+		if _NewMoon_RDY and (_NewMoon_CHARGES >= 1) and (_AstralPower <= _AstralPower_Max - _Moon_COST) and ((_NewMoon_CAST < _EclipseLunar_DUR) or (_NewMoon_CAST < _EclipseSolar_DUR)) then
+			tinsert(ConRO.SuggestedSpells, _NewMoon);
+			_NewMoon_CHARGES = _NewMoon_CHARGES - 1;
+			_AstralPower = _AstralPower - _Moon_COST;
 		end
 
-		if _FuryofElune_RDY and _AstralPower <= 70 and ((ConRO_AutoButton:IsVisible() and _enemies_in_range <= 2) or ConRO_SingleButton:IsVisible()) and ConRO:FullMode(_FuryofElune) then
-			tinsert(ConRO.SuggestedSpells, _FuryofElune);
-			_FuryofElune_RDY = false;
-		end
-
-		if _WildMushroom_RDY and _WildMushroom_CHARGES >= 3 and ((ConRO_AutoButton:IsVisible() and _enemies_in_range >= 3) or ConRO_AoEButton:IsVisible()) then
+		if _WildMushroom_RDY and _WildMushroom_CHARGES >= 1 then
 			tinsert(ConRO.SuggestedSpells, _WildMushroom);
 			_WildMushroom_CHARGES = _WildMushroom_CHARGES - 1;
 		end
 
-		if _FuryofElune_RDY and _AstralPower <= 70 and ConRO:FullMode(_FuryofElune) then
-			tinsert(ConRO.SuggestedSpells, _FuryofElune);
-			_FuryofElune_RDY = false;
-		end
-
-		if _AstralCommunion_RDY and _AstralPower < 40 then
-			tinsert(ConRO.SuggestedSpells, _AstralCommunion);
-			_AstralCommunion_RDY = false;
-			_AstralPower = AstralCommunion + 60;
-		end
-
-		if _NewMoon_RDY and (_NewMoon_CHARGES == _NewMoon_MCHARGES or (_NewMoon_CHARGES >= _NewMoon_MCHARGES - 1 and _NewMoon_CCD <= 3) or _AstralPower <= 40) then
-			tinsert(ConRO.SuggestedSpells, _NewMoon);
-			_NewMoon_CHARGES = _NewMoon_CHARGES - 1;
-		end
-
-		if _ForceofNature_RDY and _AstralPower <= 80 and ConRO:FullMode(_ForceofNature) then
-			tinsert(ConRO.SuggestedSpells, _ForceofNature);
-			_ForceofNature_RDY = false;
-		end
-
-		if _WarriorofElune_RDY and not _WarriorofElune_BUFF and ConRO:FullMode(_WarriorofElune) then
-			tinsert(ConRO.SuggestedSpells, _WarriorofElune);
-			_WarriorofElune_RDY = false;
-		end
-
-		if _Wrath_RDY and _CelestialAlignment_BUFF and ((ConRO_AutoButton:IsVisible() and _enemies_in_range <= 1) or ConRO_SingleButton:IsVisible()) then
-			tinsert(ConRO.SuggestedSpells, _Wrath);
-		end
-
-		if _Starfire_RDY and ((_EclipseLunar_BUFF or _EclipseSolar_BUFF) and (_UmbralEmbrace_BUFF or (ConRO_AutoButton:IsVisible() and _enemies_in_range >= 2) or ConRO_AoEButton:IsVisible())) then
+		if _Starfire_RDY and _EclipseLunar_BUFF then
 			tinsert(ConRO.SuggestedSpells, _Starfire);
 		end
 
-		if _Wrath_RDY then
+		if _Wrath_RDY and _EclipseSolar_BUFF then
 			tinsert(ConRO.SuggestedSpells, _Wrath);
 		end
 	end
@@ -454,11 +440,21 @@ function ConRO.Druid.BalanceDef(_, timeShift, currentSpell, gcd, tChosen, pvpCho
 
 --Abilities	
 	local _Barkskin, _Barkskin_RDY = ConRO:AbilityReady(Ability.Barkskin, timeShift);
+	local _NaturesVigil, _NaturesVigil_RDY = ConRO:AbilityReady(Ability.NaturesVigil, timeShift);
+	local _Regrowth, _Regrowth_RDY = ConRO:AbilityReady(Ability.Regrowth, timeShift);
 	local _Renewal, _Renewal_RDY = ConRO:AbilityReady(Ability.Renewal, timeShift);
 
 --Rotations	
-	if _Renewal_RDY and _Player_Percent_Health <= 60 then
+	if _Renewal_RDY and _Player_Percent_Health <= 40 then
 		tinsert(ConRO.SuggestedDefSpells, _Renewal);
+	end
+
+	if _NaturesVigil_RDY and _Player_Percent_Health <= 80 then
+		tinsert(ConRO.SuggestedDefSpells, _NaturesVigil);
+	end
+
+	if _Regrowth_RDY and _Player_Percent_Health <= 75 then
+		tinsert(ConRO.SuggestedDefSpells, _Regrowth);
 	end
 
 	if _Barkskin_RDY then
