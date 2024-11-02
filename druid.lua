@@ -223,10 +223,10 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	local _MoonkinForm, _MoonkinForm_RDY = ConRO:AbilityReady(Ability.MoonkinForm, timeShift);
 		local _MoonkinForm_FORM = ConRO:Form(Form.MoonkinForm);
 		local _OwlkinFrenzy_BUFF = ConRO:Aura(Buff.OwlkinFrenzy, timeShift);
-	local _NewMoon, _NewMoon_RDY = ConRO:AbilityReady(Ability.NewMoon, timeShift);
-		local _HalfMoon, _, _HalfMoon_CD = ConRO:AbilityReady(Ability.HalfMoon, timeShift);
-		local _FullMoon, _, _FullMoon_CD = ConRO:AbilityReady(Ability.FullMoon, timeShift);
-		local _NewMoon_CHARGES, _, _, _, _NewMoon_CAST = ConRO:SpellCharges(_NewMoon);
+	local _NewMoon, _NewMoon_RDY, _, _, _NewMoon_CAST = ConRO:AbilityReady(Ability.NewMoon, timeShift);
+		local _HalfMoon, _, _HalfMoon_CD, _, _HalfMoon_CAST = ConRO:AbilityReady(Ability.HalfMoon, timeShift);
+		local _FullMoon, _, _FullMoon_CD, _, _FullMoon_CAST = ConRO:AbilityReady(Ability.FullMoon, timeShift);
+		local _NewMoon_CHARGES = ConRO:SpellCharges(_NewMoon);
 	local _SolarBeam, _SolarBeam_RDY = ConRO:AbilityReady(Ability.SolarBeam, timeShift);
 	local _Soothe, _Soothe_RDY = ConRO:AbilityReady(Ability.Soothe, timeShift);
 	local _Starfire, _Starfire_RDY = ConRO:AbilityReady(Ability.Starfire, timeShift);
@@ -281,12 +281,12 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			_Starfire_Count = _Starfire_Count - 1;
 		end
 
-		if ConRO:FindSpell(_FullMoon) then
+		if ConRO:IsOverride(_NewMoon) == _FullMoon then
 			_NewMoon_RDY = _NewMoon_RDY and _FullMoon_CD <= 0;
-			_NewMoon = _FullMoon;
-		elseif ConRO:FindSpell(_HalfMoon) then
+			_NewMoon, _NewMoon_CAST = _FullMoon, _FullMoon_CAST;
+		elseif ConRO:IsOverride(_NewMoon) == _HalfMoon then
 			_NewMoon_RDY = _NewMoon_RDY and _HalfMoon_CD <= 0;
-			_NewMoon = _HalfMoon;
+			_NewMoon, _NewMoon_CAST = _HalfMoon, _HalfMoon_CAST;
 		end
 
 		if tChosen[Ability.OrbitalStrike.talentID] then
