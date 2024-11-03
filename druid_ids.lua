@@ -453,6 +453,7 @@ local ConRO_Druid, ids = ...;
 		Ironfur = 192081,
 		MarkoftheWild = 1126,
 		PredatorySwiftness = 69369,
+		Ravage = 441585,
 		Regrowth = 8936,
 		SavageRoar = 52610,
 		SuddenAmbush = 391974,
@@ -463,7 +464,7 @@ local ConRO_Druid, ids = ...;
 		Rake = 155722,
 		RakeStun = 163505,
 		Rip = 1079,
-		ThrashCF = 106830,
+		ThrashCF = 405233,
 		ThrashBF = 192090,
 	}
 	ids.Feral_PetAbility = {
@@ -673,12 +674,16 @@ local ConRO_Druid, ids = ...;
 		Ironfur = 192081,
 		MarkoftheWild = 1126,
 		Pulverize = 158792,
+		Ravage = 441602,
 		Regrowth = 8936,
 		SurvivalInstincts = 61336,
+		ToothandClaw = 135286,
 	}
 	ids.Guard_Debuff = {
-		Thrash = 192090,
 		Moonfire = 164812,
+		Rip = 1079,
+		ThrashCF = 405233,
+		ThrashBF = 192090,
 	}
 	ids.Guard_PetAbility = {
 
