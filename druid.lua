@@ -149,6 +149,8 @@ local _can_Execute = _Target_Percent_Health < 20;
 --Racials
 local _Berserking, _Berserking_RDY = _, _;
 
+local HeroSpec, Racial = ids.HeroSpec, ids.Racial;
+
 function ConRO:Stats()
 	_Player_Level = UnitLevel("player");
 	_Player_Percent_Health = ConRO:PercentHealth('player');
