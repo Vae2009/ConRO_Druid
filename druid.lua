@@ -212,18 +212,17 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	local Ability, Form, Buff, Debuff, PetAbility, PvPTalent = ids.Bal_Ability, ids.Bal_Form, ids.Bal_Buff, ids.Bal_Debuff, ids.Bal_PetAbility, ids.Bal_PvPTalent;
 
 --Abilities
-	local _CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = ConRO:AbilityReady(Ability.CelestialAlignment, timeShift);
+	local _CelestialAlignment, _CelestialAlignment_RDY = ConRO:AbilityReady(Ability.CelestialAlignment, timeShift);
 		local _CelestialAlignment_BUFF = ConRO:Aura(Buff.CelestialAlignment, timeShift);
 	local _ConvoketheSpirits, _ConvoketheSpirits_RDY = ConRO:AbilityReady(Ability.ConvoketheSpirits, timeShift);
 	local _ForceofNature, _ForceofNature_RDY = ConRO:AbilityReady(Ability.ForceofNature, timeShift);
 	local _FuryofElune, _FuryofElune_RDY = ConRO:AbilityReady(Ability.FuryofElune, timeShift);
-	local _IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD = ConRO:AbilityReady(Ability.IncarnationChosenofElune, timeShift);
+	local _IncarnationChosenofElune, _IncarnationChosenofElune_RDY = ConRO:AbilityReady(Ability.IncarnationChosenofElune, timeShift);
 	local _MarkoftheWild, _MarkoftheWild_RDY = ConRO:AbilityReady(Ability.MarkoftheWild, timeShift);
 	local _Moonfire, _Moonfire_RDY = ConRO:AbilityReady(Ability.Moonfire, timeShift);
 		local _Moonfire_DEBUFF, _, _Moonfire_DUR = ConRO:TargetAura(Debuff.Moonfire, timeShift);
 	local _MoonkinForm, _MoonkinForm_RDY = ConRO:AbilityReady(Ability.MoonkinForm, timeShift);
 		local _MoonkinForm_FORM = ConRO:Form(Form.MoonkinForm);
-		local _OwlkinFrenzy_BUFF = ConRO:Aura(Buff.OwlkinFrenzy, timeShift);
 	local _NewMoon, _NewMoon_RDY, _, _, _NewMoon_CAST = ConRO:AbilityReady(Ability.NewMoon, timeShift);
 		local _HalfMoon, _, _HalfMoon_CD, _, _HalfMoon_CAST = ConRO:AbilityReady(Ability.HalfMoon, timeShift);
 		local _FullMoon, _, _FullMoon_CD, _, _FullMoon_CAST = ConRO:AbilityReady(Ability.FullMoon, timeShift);
@@ -234,7 +233,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 		local _Starfire_Count = C_Spell.GetSpellCastCount(_Starfire);
 		local _EclipseSolar_BUFF, _, _EclipseSolar_DUR = ConRO:Aura(Buff.EclipseSolar, timeShift);
 	local _Starsurge, _Starsurge_RDY = ConRO:AbilityReady(Ability.Starsurge, timeShift);
-		local _Starlord_BUFF, _Starlord_COUNT = ConRO:Aura(Buff.Starlord, timeShift);
+		local _, _Starlord_COUNT = ConRO:Aura(Buff.Starlord, timeShift);
 		local _UmbralEmbrace_BUFF = ConRO:Aura(Buff.UmbralEmbrace, timeShift);
 	local _Starfall, _Starfall_RDY = ConRO:AbilityReady(Ability.Starfall, timeShift);
 		local _Starfall_BUFF, _, _Starfall_DUR = ConRO:Aura(Buff.Starfall, timeShift);
@@ -291,12 +290,12 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 		end
 
 		if tChosen[Ability.OrbitalStrike.talentID] then
-			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = ConRO:AbilityReady(Ability.CelestialAlignmentOS, timeShift);
-			_IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD = ConRO:AbilityReady(Ability.IncarnationChosenofEluneOS, timeShift);
+			_CelestialAlignment, _CelestialAlignment_RDY = ConRO:AbilityReady(Ability.CelestialAlignmentOS, timeShift);
+			_IncarnationChosenofElune, _IncarnationChosenofElune_RDY = ConRO:AbilityReady(Ability.IncarnationChosenofEluneOS, timeShift);
 		end
 
 		if tChosen[Ability.IncarnationChosenofElune.talentID] then
-			_CelestialAlignment, _CelestialAlignment_RDY, _CelestialAlignment_CD = _IncarnationChosenofElune, _IncarnationChosenofElune_RDY, _IncarnationChosenofElune_CD;
+			_CelestialAlignment, _CelestialAlignment_RDY = _IncarnationChosenofElune, _IncarnationChosenofElune_RDY;
 			_CelestialAlignment_BUFF = ConRO:Aura(Buff.IncarnationChosenofElune, timeShift);
 		end
 
@@ -306,7 +305,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 	ConRO:AbilityInterrupt(_SolarBeam, _SolarBeam_RDY and ConRO:Interrupt());
 	ConRO:AbilityPurge(_Soothe, _Soothe_RDY and ConRO:Purgable());
 
-	ConRO:AbilityBurst(_CelestialAlignment, _CelestialAlignment_RDY and _Moonfire_DEBUFF and _Sunfire_DEBUFF and (not tChosen[Ability.StellarFlare] or (tChosen[Ability.StellarFlare] and _StellarFlare_DEBUFF)) and (_EclipseSolar_BUFF or _EclipseLunar_BUFF) and ConRO:BurstMode(_CelestialAlignment));
+	ConRO:AbilityBurst(_CelestialAlignment, _CelestialAlignment_RDY and _Moonfire_DEBUFF and _Sunfire_DEBUFF and (not tChosen[Ability.StellarFlare] or (tChosen[Ability.StellarFlare] and _StellarFlare_DEBUFF)) and (_EclipseSolar_BUFF or _EclipseLunar_BUFF) and ConRO:BurstMode(_CelestialAlignment, 120));
 	ConRO:AbilityBurst(_FuryofElune, _FuryofElune_RDY and _AstralPower <= 60 and ConRO:BurstMode(_FuryofElune));
 	ConRO:AbilityBurst(_ForceofNature, _ForceofNature_RDY and _AstralPower <= 80 and ConRO:BurstMode(_ForceofNature));
 	ConRO:AbilityBurst(_WarriorofElune, _WarriorofElune_RDY and not _WarriorofElune_BUFF and ConRO:BurstMode(_WarriorofElune));
@@ -371,7 +370,7 @@ function ConRO.Druid.Balance(_, timeShift, currentSpell, gcd, tChosen, pvpChosen
 			_ForceofNature_RDY = false;
 		end
 
-		if _CelestialAlignment_RDY and not _CelestialAlignment_BUFF and ConRO:FullMode(_CelestialAlignment) then
+		if _CelestialAlignment_RDY and not _CelestialAlignment_BUFF and ConRO:FullMode(_CelestialAlignment, 120) then
 			tinsert(ConRO.SuggestedSpells, _CelestialAlignment);
 			_CelestialAlignment_RDY = false;
 		end
