@@ -536,6 +536,10 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 		_Swipe, _Swipe_RDY = ConRO:AbilityReady(Ability.BrutalSlash, timeShift);
 	end
 
+	if _Ravage_BUFF then
+		_, _FerociousBite_RDY = ConRO:AbilityReady(Ability.Ravage, timeShift);
+	end
+
 --Indicators		
 	ConRO:AbilityInterrupt(_SkullBash, _SkullBash_RDY and ConRO:Interrupt());
 	ConRO:AbilityPurge(_Soothe, _Soothe_RDY and ConRO:Purgable());
@@ -603,6 +607,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 
 		if _FerociousBite_RDY and _ApexPredatorsCraving_BUFF then
 			tinsert(ConRO.SuggestedSpells, _FerociousBite);
+			_Ravage_BUFF = false;
 			_ApexPredatorsCraving_BUFF = false;
 		end
 
@@ -677,6 +682,7 @@ function ConRO.Druid.Feral(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 
 		if _FerociousBite_RDY and _Rip_DUR >= 6 and _Combo >= 5 then
 			tinsert(ConRO.SuggestedSpells, _FerociousBite);
+			_Ravage_BUFF = false;
 			_Combo = 0;
 		end
 
