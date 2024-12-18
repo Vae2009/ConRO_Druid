@@ -883,12 +883,9 @@ local ConRO_Druid, ids = ...;
 	ids.Resto_Form = {
 		BearForm = 5487,
 		CatForm = 768,
-		MoonkinForm = 197625,
 		Prowl = 5215,
 	}
 	ids.Resto_Buff = {
-		EclipseLunar = 48518,
-		EclipseSolar = 48517,
 		Ironfur = 192081,
 		Lifebloom =	33763,
 		MarkoftheWild = 1126,
@@ -897,6 +894,8 @@ local ConRO_Druid, ids = ...;
 	ids.Resto_Debuff = {
 		Moonfire = 164812,
 		Sunfire = 164815,
+		ThrashCF = 405233,
+		ThrashBF = 192090,
 	}
 	ids.Resto_PetAbility = {
 
